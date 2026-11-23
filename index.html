@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FrameLab | Criação de sites para negócios</title>
+<meta name="description" content="A FrameLab cria landing pages, sites institucionais e sites com agendamento e vendas para pequenas e médias empresas. Planos a partir de R$ 600, atendimento online para todo o Brasil.">
+<meta name="theme-color" content="#080505">
+<meta property="og:type" content="website">
+<meta property="og:title" content="FrameLab | Sites que fazem o seu negócio ser encontrado">
+<meta property="og:description" content="Landing pages, sites institucionais e sites com automação para pequenas e médias empresas. A partir de R$ 600.">
+<!-- DEPLOY STEP: troque pela URL do ar antes de publicar -->
+<meta property="og:url" content="https://www.SEUDOMINIO.com.br/">
+<meta property="og:image" content="https://www.SEUDOMINIO.com.br/assets/og.jpg">
+<meta property="og:video" content="https://www.SEUDOMINIO.com.br/assets/thumb.mp4">
+<meta property="og:video:type" content="video/mp4">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23080505'/%3E%3Cpath d='M22 12l40 24-7 6-21-12v15l-12 6z' fill='%23eeeae4'/%3E%3Cpath d='M22 54l32-11 2 7-22 8v30l-12 4z' fill='%23eeeae4'/%3E%3Cpath d='M58 40l28 17-31 21v-9l17-12-14-8z' fill='%23c98a2b'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/michroma-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/manrope-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Michroma";font-weight:400;font-style:normal;font-display:swap;src:url(assets/fonts/michroma-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Manrope";font-weight:400;font-style:normal;font-display:swap;src:url(assets/fonts/manrope-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Manrope";font-weight:600;font-style:normal;font-display:swap;src:url(assets/fonts/manrope-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:400;font-style:normal;font-display:swap;src:url(assets/fonts/ibm-plex-mono-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:swap;src:url(assets/fonts/ibm-plex-mono-latin-500-normal.woff2) format("woff2")}
+:root{
+  --canvas:#080505; --panel:#120d0a; --panel-2:#1a1410;
+  --accent:#c98a2b; --accent-hover:#e0a548; --accent-muted:#6e4a18;
+  --text-primary:#f1ede6; --text-secondary:#aaa298; --line:#33281e; --line-strong:#7a6650;
+  --display:"Michroma",system-ui,sans-serif; --body:"Manrope",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.22,.8,.24,1); --ease-io:cubic-bezier(.65,0,.35,1);
+  --tshadow:0 1px 2px rgba(5,3,2,.95),0 3px 12px rgba(5,3,2,.78),0 10px 44px rgba(5,3,2,.8);
+  --pad:clamp(20px,6vw,96px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:hidden;overflow-x:clip;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{overflow-x:hidden;overflow-x:clip;background:var(--canvas);color:var(--text-primary);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased;animation:pagein .9s var(--ease) both}
+@keyframes pagein{from{opacity:0}to{opacity:1}}
+img,svg,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:fixed;left:16px;top:-60px;z-index:100;background:var(--accent);color:#120c06;padding:10px 16px;border-radius:8px;font-weight:600;transition:top .3s var(--ease)}
+.skip:focus{top:16px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:.01em;line-height:1.22}
+
+/* ambiente fixo */
+.ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.ambient i{position:absolute;width:70vmax;height:70vmax;border-radius:50%;background:radial-gradient(circle,rgba(201,138,43,.075) 0%,rgba(201,138,43,0) 62%);animation:drift 74s var(--ease-io) infinite alternate}
+.ambient i:nth-child(1){left:-20vmax;top:-10vmax;animation-delay:-20s}
+.ambient i:nth-child(2){right:-25vmax;bottom:-25vmax;animation-delay:-48s;animation-duration:92s}
+.ambient::after{content:"";position:absolute;inset:-50%;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+@keyframes drift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(12vmax,9vmax,0) scale(1.15)}}
+
+/* visor de câmera (elemento assinatura) */
+.hud{position:fixed;inset:14px;z-index:40;pointer-events:none}
+.hud .cn{position:absolute;width:26px;height:26px;border-color:rgba(241,237,230,.55);border-style:solid;border-width:0}
+.hud .tl{left:0;top:0;border-left-width:1.5px;border-top-width:1.5px}
+.hud .tr{right:0;top:0;border-right-width:1.5px;border-top-width:1.5px}
+.hud .bl{left:0;bottom:0;border-left-width:1.5px;border-bottom-width:1.5px}
+.hud .br{right:0;bottom:0;border-right-width:1.5px;border-bottom-width:1.5px}
+.hud .read{position:absolute;bottom:10px;display:flex;align-items:baseline;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--text-secondary);padding:5px 10px;border-radius:8px;background:rgba(10,7,5,.55);border:1px solid rgba(122,102,80,.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.hud .read.l{left:38px}.hud .read.r{right:38px}
+.hud .dot{width:7px;height:7px;border-radius:50%;background:#e0483a;align-self:center;position:relative}
+.hud .dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;background:rgba(224,72,58,.45);opacity:0;animation:recpulse 4s ease-in-out infinite;animation-delay:-1.3s}
+@keyframes recpulse{0%,100%{opacity:0;transform:scale(.6)}50%{opacity:1;transform:scale(1)}}
+.hud b{font-weight:500;color:var(--text-primary)}
+@media (max-width:720px),(max-height:560px){.hud .read{display:none}.hud{inset:8px}.hud .cn{width:16px;height:16px}}
+
+/* navegação */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px calc(var(--pad) * .6 + 24px);background:linear-gradient(180deg,rgba(8,5,5,.85),rgba(8,5,5,0));}
+.nav .brand img{height:26px;width:auto}
+.nav ul{display:flex;gap:30px;list-style:none;align-items:center}
+.nav ul a{font-size:14px;color:var(--text-secondary);transition:color .35s var(--ease)}
+.nav ul a:hover{color:var(--text-primary)}
+.nav ul a.btn-gold,.nav ul a.btn-gold:hover{color:#170f06}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:600;font-size:15px;border-radius:999px;padding:14px 26px;transition:background-color .35s var(--ease),transform .35s var(--ease),border-color .35s var(--ease),color .35s var(--ease);white-space:nowrap;text-shadow:none;cursor:pointer;border:0}
+.btn-gold{background:var(--accent);color:#170f06}
+.btn-gold:hover{background:var(--accent-hover);transform:translateY(-2px)}
+.btn-ghost{border:1px solid var(--line-strong);color:var(--text-primary);background:rgba(10,7,5,.35)}
+.btn-ghost:hover{border-color:var(--text-primary);transform:translateY(-2px)}
+.btn-sm{padding:10px 18px;font-size:14px}
+.btn svg{width:18px;height:18px;flex:none}
+@media (pointer:coarse){.btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center}}
+@media (max-width:860px){.nav ul li:not(.cta){display:none}}
+
+/* hero com vídeo que toca sozinho */
+.hero{position:relative;height:100vh;height:100svh;min-height:620px;overflow:hidden;background:#040000}
+.hv{position:absolute;top:0;bottom:0;right:-11vw;width:86vw;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24%);mask-image:linear-gradient(90deg,transparent 0,#000 24%)}
+#hero{width:100%;height:100%;object-fit:cover;background:#040000}
+.hscrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(4,1,0,.95) 0%,rgba(4,1,0,.72) 38%,rgba(4,1,0,0) 60%),linear-gradient(180deg,rgba(8,5,5,0) 70%,var(--canvas) 100%)}
+.hcopy{position:absolute;left:var(--pad);top:50%;transform:translateY(-46%);width:min(37vw,560px);z-index:2;text-shadow:var(--tshadow)}
+.hcopy .btn{text-shadow:none}
+.hcopy .kicker{display:block;margin-bottom:22px}
+.hcopy h1{font-size:clamp(28px,2.8vw,46px);line-height:1.2}
+.hcopy .s{color:#ddd6cc;font-size:18px;margin-top:22px;max-width:44ch}
+.hcopy .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.hcopy .w{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:calc(.25s + var(--wi,0)*70ms)}
+.hcopy .kicker,.hcopy .s,.hcopy .row{opacity:0;transform:translateY(14px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.hcopy .kicker{transition-delay:.1s}.hcopy .s{transition-delay:.85s}.hcopy .row{transition-delay:1.05s}
+.hero.on .hcopy .w,.hero.on .hcopy .kicker,.hero.on .hcopy .s,.hero.on .hcopy .row{opacity:1;transform:none}
+.cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--text-secondary)}
+.cue i{display:block;width:1px;height:38px;background:linear-gradient(180deg,var(--text-secondary),rgba(170,162,152,0));transform-origin:top;animation:cueline 4s var(--ease-io) infinite;animation-delay:-1s}
+@keyframes cueline{0%{transform:scaleY(0);opacity:1}60%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
+@media (max-height:620px){.cue{display:none}}
+@media (max-width: 900px), (orientation: portrait) and (max-width: 1024px){
+  .hero{height:auto;min-height:0;display:flex;flex-direction:column;overflow:visible}
+  .hv{position:relative;right:auto;width:100%;aspect-ratio:16/9;margin-top:64px;-webkit-mask-image:linear-gradient(180deg,#000 75%,transparent 100%);mask-image:linear-gradient(180deg,#000 75%,transparent 100%)}
+  .hscrim,.cue{display:none}
+  .hcopy{position:relative;left:auto;top:auto;transform:none;width:auto;padding:8px var(--pad) 64px;text-shadow:none}
+  .hcopy h1{font-size:clamp(24px,6.4vw,40px)}
+}
+
+/* seções */
+section.sec{position:relative;padding:clamp(96px,14vh,160px) var(--pad)}
+.wrap{max-width:1240px;margin:0 auto}
+.sec h2{font-size:clamp(26px,3vw,44px)}
+.lede{color:var(--text-secondary);font-size:18px;max-width:52ch}
+
+/* entradas coreografadas */
+.rv [data-r]{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--i,0)*90ms)}
+.rv.in [data-r]{opacity:1;transform:none}
+.rv.in.done [data-r]{transition-delay:0s}
+.rv .card[data-r]{transition-property:opacity,transform,border-color}
+.rv.in .card[data-r]:hover{transform:translateY(-4px)}
+.rv.in.done .card[data-r]{transition-duration:.5s}
+.rv.in .btn[data-r]:hover{transform:translateY(-2px)}
+
+/* losango dourado que se desenha (eco das linhas do vídeo) */
+.draw path,.draw line,.draw rect{stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--d,0))}
+.diamonds{position:absolute;pointer-events:none;color:var(--accent);opacity:.55}
+
+/* 1. dor */
+.pain .grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(36px,6vw,96px);align-items:center}
+.frame{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:16/10;background:#040000}
+.frame img{width:100%;height:100%;object-fit:cover;transform:scale(1.02)}
+.pain.live .frame img{animation:kb 22s var(--ease-io) infinite alternate;animation-delay:-6s}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.08) translateX(-1.5%)}}
+.frame .fc{position:absolute;width:22px;height:22px;border:0 solid rgba(241,237,230,.7)}
+.frame .fc:nth-child(2){left:14px;top:14px;border-left-width:1.5px;border-top-width:1.5px}
+.frame .fc:nth-child(3){right:14px;top:14px;border-right-width:1.5px;border-top-width:1.5px}
+.frame .fc:nth-child(4){left:14px;bottom:14px;border-left-width:1.5px;border-bottom-width:1.5px}
+.frame .fc:nth-child(5){right:14px;bottom:14px;border-right-width:1.5px;border-bottom-width:1.5px}
+.frame .tag{position:absolute;left:46px;top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--text-primary);background:rgba(8,5,5,.6);padding:3px 8px;border-radius:6px}
+.pain h2{margin:18px 0 28px}
+.pains{list-style:none;display:grid;gap:0;border-top:1px solid var(--line)}
+.pains li{display:grid;grid-template-columns:44px 1fr;gap:14px;padding:18px 0;border-bottom:1px solid var(--line);color:#ddd6cc}
+.pains li span{font-family:var(--mono);font-size:12px;color:var(--accent);padding-top:4px;letter-spacing:.1em}
+.pain .close{margin-top:28px;font-family:var(--display);font-size:clamp(16px,1.4vw,20px);line-height:1.45}
+.pain .close em{font-style:normal;color:var(--accent)}
+
+/* 2. serviços */
+.svc .head{text-align:center;max-width:940px;margin:0 auto clamp(48px,7vh,80px)}
+.svc .head h2{margin:16px 0 18px}
+.svc .head .lede{margin:0 auto;max-width:60ch}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{position:relative;padding:36px 30px 32px;border-radius:6px;background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--line);transition:border-color .5s var(--ease),transform .5s var(--ease)}
+.card:hover{border-color:var(--line-strong);transform:translateY(-4px)}
+.card .ic{position:relative;width:56px;height:56px;margin-bottom:28px;color:var(--accent)}
+.card .ic svg{width:56px;height:56px;position:relative;z-index:1}
+.card .ic::before{content:"";position:absolute;inset:-14px;border-radius:50%;background:radial-gradient(circle,rgba(201,138,43,.3),rgba(201,138,43,0) 70%);opacity:0}
+.svc.live .card .ic::before{animation:glow 6s ease-in-out infinite}
+.svc.live .card:nth-child(1) .ic::before{animation-delay:-1s}
+.svc.live .card:nth-child(2) .ic::before{animation-delay:-3s}
+.svc.live .card:nth-child(3) .ic::before{animation-delay:-5s}
+@keyframes glow{0%,100%{opacity:.15}50%{opacity:1}}
+.card .num{position:absolute;right:26px;top:30px;font-family:var(--mono);font-size:12px;color:var(--text-secondary);letter-spacing:.14em}
+.card h3{font-size:19px;letter-spacing:.04em;margin-bottom:12px}
+.card p{color:var(--text-secondary);font-size:16px}
+.card ul{list-style:none;margin-top:22px;border-top:1px solid var(--line);padding-top:16px;display:grid;gap:8px}
+.card li{display:flex;gap:10px;align-items:baseline;font-size:15px;color:#ddd6cc}
+.card li::before{content:"";width:6px;height:6px;flex:none;border:1.5px solid var(--accent);transform:rotate(45deg) translateY(-1px)}
+
+/* 2b. planos */
+.plans .card{display:flex;flex-direction:column}
+.plans .card ul{margin-bottom:18px}
+.price{margin-top:22px;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.price small{flex-basis:100%;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-secondary)}
+.price strong{font-family:var(--display);font-weight:400;font-size:28px;color:var(--text-primary)}
+.price span{color:var(--accent);font-weight:600;font-size:15px}
+.eta{margin-top:auto;padding-top:4px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--text-secondary)!important}
+.plans .card .btn{margin-top:16px;width:100%}
+.big{margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:32px;padding:30px 32px;border-radius:6px;border:1px solid var(--line);background:linear-gradient(90deg,var(--panel-2),rgba(18,13,10,.4))}
+.big h3{font-size:18px;margin:10px 0 8px;max-width:40ch;line-height:1.4}
+.big p{color:var(--text-secondary);max-width:60ch;font-size:16px}
+.monthly{margin-top:56px;border-top:1px solid var(--line);padding-top:28px}
+.monthly .mono{color:var(--accent);font-size:11px}
+.monthly ul{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:24px;margin-top:20px}
+.monthly li{color:var(--text-secondary);font-size:15px;line-height:1.5}
+.monthly b{display:block;color:var(--text-primary);font-weight:600;margin-bottom:4px}
+.fine{margin-top:32px;font-size:14px;color:var(--text-secondary);max-width:80ch}
+
+/* 3. portfólio */
+.work .grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(40px,6vw,96px);align-items:center}
+.work h2{margin:16px 0 22px}
+.work .lede{margin-bottom:16px}
+.work .btn{margin-top:14px}
+.thumb{margin:0}
+.tv{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:#040000 url("assets/og.jpg") center/cover;border:1px solid var(--line);box-shadow:0 40px 90px -40px rgba(201,138,43,.35)}
+.tv video{width:100%;height:100%;object-fit:cover}
+.tv .fc{position:absolute;width:22px;height:22px;border:0 solid rgba(241,237,230,.7)}
+.tv .fc:nth-of-type(1){left:14px;top:14px;border-left-width:1.5px;border-top-width:1.5px}
+.tv .fc:nth-of-type(2){right:14px;top:14px;border-right-width:1.5px;border-top-width:1.5px}
+.tv .fc:nth-of-type(3){left:14px;bottom:14px;border-left-width:1.5px;border-bottom-width:1.5px}
+.tv .fc:nth-of-type(4){right:14px;bottom:14px;border-right-width:1.5px;border-bottom-width:1.5px}
+.tv .tag{position:absolute;left:46px;top:12px;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;background:rgba(8,5,5,.6);padding:3px 8px;border-radius:6px}
+.tv .tag i{width:6px;height:6px;border-radius:50%;background:#e0483a}
+.thumb figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-top:16px;color:var(--text-primary);font-weight:600}
+.thumb figcaption .mono{font-size:11px;color:var(--text-secondary);font-weight:400}
+.work.live .tv{animation:tvglow 7s ease-in-out infinite;animation-delay:-2s}
+@keyframes tvglow{0%,100%{border-color:var(--line)}50%{border-color:var(--accent-muted)}}
+
+/* 4. como funciona */
+.how .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(40px,7vw,110px);align-items:start}
+.how .side{position:sticky;top:140px}
+.how h2{margin:16px 0 20px}
+.recbox{margin-top:36px;display:flex;align-items:center;gap:20px}
+.rec{position:relative;width:92px;height:92px;border-radius:50%;border:1px solid var(--line-strong);background:var(--panel);cursor:pointer;flex:none;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;transition:border-color .4s var(--ease),transform .4s var(--ease)}
+.rec:hover{border-color:var(--text-primary)}
+.rec.holding{transform:scale(.96)}
+.rec svg{position:absolute;inset:-1px;width:92px;height:92px;transform:rotate(-90deg)}
+.rec .track{stroke:rgba(241,237,230,.1)}
+.rec .prog{stroke:var(--accent);stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--p,0))}
+.rec .core{position:absolute;left:50%;top:50%;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:#e0483a;transition:border-radius .5s var(--ease),transform .5s var(--ease)}
+.rec .core::after{content:"";position:absolute;inset:-8px;border-radius:50%;background:rgba(224,72,58,.35);opacity:0}
+.how.live .rec .core::after{animation:recpulse 4s ease-in-out infinite;animation-delay:-2s}
+.how.lit .rec .core{border-radius:6px;transform:scale(.8);background:var(--accent)}
+.how.lit .rec .core::after{display:none}
+.rectext b{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-primary);font-weight:500}
+.rectext span{display:block;color:var(--text-secondary);font-size:15px;margin-top:4px}
+.steps{position:relative;list-style:none;padding-left:48px}
+.steps .rail{position:absolute;left:10px;top:10px;bottom:10px;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent-muted));transform-origin:50% 0;transform:scaleY(var(--d,0))}
+.steps li{position:relative;padding:0 0 52px}
+.steps li:last-child{padding-bottom:0}
+.steps li::before{content:"";position:absolute;left:-43px;top:6px;width:12px;height:12px;border:1.5px solid var(--line-strong);background:var(--canvas);transform:rotate(45deg);transition:background-color .6s var(--ease),border-color .6s var(--ease)}
+.steps .n{font-family:var(--mono);font-size:12px;letter-spacing:.18em;color:var(--text-secondary);transition:color .6s var(--ease)}
+.steps h3{font-size:20px;margin:6px 0 10px;letter-spacing:.03em;opacity:.62;transition:opacity .7s var(--ease)}
+.steps p{color:var(--text-secondary);max-width:46ch}
+.how.lit .steps li::before{background:var(--accent);border-color:var(--accent)}
+.how.lit .steps .n{color:var(--accent)}
+.how.lit .steps h3{opacity:1}
+.steps ol{list-style:none}
+.how.lit .steps li:nth-child(1)::before,.how.lit .steps li:nth-child(1) .n,.how.lit .steps li:nth-child(1) h3{transition-delay:.15s}
+.how.lit .steps li:nth-child(2)::before,.how.lit .steps li:nth-child(2) .n,.how.lit .steps li:nth-child(2) h3{transition-delay:.4s}
+.how.lit .steps li:nth-child(3)::before,.how.lit .steps li:nth-child(3) .n,.how.lit .steps li:nth-child(3) h3{transition-delay:.65s}
+.how.lit .steps li:nth-child(4)::before,.how.lit .steps li:nth-child(4) .n,.how.lit .steps li:nth-child(4) h3{transition-delay:.9s}
+
+/* 5. dúvidas */
+.faq .head{text-align:center;margin-bottom:56px}
+.faq .head h2{margin-top:16px}
+.qa{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;max-width:1100px;margin:0 auto}
+details{border-top:1px solid var(--line)}
+.qa > div:last-child details:last-child,.qa > div:first-child details:last-child{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:22px 0;font-weight:600;font-size:17px}
+summary::-webkit-details-marker{display:none}
+summary .pl{position:relative;width:14px;height:14px;flex:none;align-self:center}
+summary .pl::before,summary .pl::after{content:"";position:absolute;left:0;top:6px;width:14px;height:1.5px;background:var(--accent);transition:transform .45s var(--ease)}
+summary .pl::after{transform:rotate(90deg)}
+details[open] summary .pl::after{transform:rotate(0)}
+details p{color:var(--text-secondary);padding:0 32px 24px 0;max-width:52ch}
+.faq .diamonds{left:50%;top:60px;transform:translateX(-50%);width:120px;opacity:.35}
+.faq.live .diamonds{animation:breathe 7s ease-in-out infinite;animation-delay:-2s}
+@keyframes breathe{0%,100%{opacity:.25}50%{opacity:.55}}
+
+/* 6. contato */
+.cta .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(40px,6vw,96px);align-items:center}
+.cta h2{font-size:clamp(30px,3.8vw,56px);margin:18px 0 22px}
+.cta .lede{margin-bottom:30px}
+.direct{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.12em;color:var(--text-secondary);border-bottom:1px solid var(--line-strong);padding-bottom:4px;transition:color .35s var(--ease),border-color .35s var(--ease)}
+.direct:hover{color:var(--text-primary);border-color:var(--text-primary)}
+form.card{padding:34px 30px}
+form label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-secondary);margin:0 0 8px}
+.field{margin-bottom:20px}
+input,select,textarea{width:100%;background:#0b0807;border:1px solid var(--line-strong);border-radius:8px;padding:13px 14px;font-size:16px;transition:border-color .35s var(--ease)}
+input::placeholder,textarea::placeholder{color:#8c8378}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+textarea{resize:vertical;min-height:96px}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23c98a2b' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+form .btn{width:100%;margin-top:6px}
+.cta.live form .btn-gold{position:relative}
+.cta.live form .btn-gold::after{content:"";position:absolute;inset:-6px;border-radius:999px;box-shadow:0 0 28px 4px rgba(201,138,43,.35);opacity:0;animation:glow 5s ease-in-out infinite;animation-delay:-1.5s;pointer-events:none}
+.formnote{font-size:13px;color:var(--text-secondary);margin-top:14px;text-align:center}
+.ok{display:none;text-align:center;padding:20px 0}
+.ok h3{font-size:20px;margin:14px 0 10px}
+.ok p{color:var(--text-secondary)}
+form.sent .fields{display:none}
+form.sent .ok{display:block;animation:pagein .7s var(--ease) both}
+
+/* rodapé */
+footer{padding:56px var(--pad) 72px;border-top:1px solid var(--line)}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+footer img{height:22px;width:auto}
+footer p,footer a{font-size:14px;color:var(--text-secondary)}
+footer a:hover{color:var(--text-primary)}
+
+@media (max-width:900px){
+  .pain .grid,.how .grid,.cta .grid{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  .work .grid{grid-template-columns:1fr}
+  .work .thumb{order:-1}
+  .big{flex-direction:column;align-items:flex-start}
+  .monthly ul{grid-template-columns:1fr 1fr}
+  .qa{grid-template-columns:1fr}
+  .qa > div:first-child details:last-child{border-bottom:0}
+  .how .side{position:static}
+}
+@media (max-height:560px){.diamonds{display:none}}
+
+/* pausas */
+body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused!important}
+
+/* movimento reduzido: tudo no estado final */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;transition-delay:0s!important;scroll-behavior:auto!important}
+  .rv [data-r]{opacity:1!important;transform:none!important}
+  .w,.c,.hcopy .kicker,.hcopy .s,.hcopy .row{opacity:1!important;transform:none!important}
+  .draw path,.draw line,.draw rect{stroke-dashoffset:0!important}
+  .rail{transform:none!important}
+}
+.pinned .draw path,.pinned .draw line,.pinned .draw rect{stroke-dashoffset:0!important}
+.pinned .rail{transform:none!important}
+</style>
+</head>
+<body data-wa="5500000000000">
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<div class="ambient" aria-hidden="true"><i></i><i></i></div>
+
+<div class="hud" aria-hidden="true">
+  <span class="cn tl"></span><span class="cn tr"></span><span class="cn bl"></span><span class="cn br"></span>
+  <div class="read l"><span class="dot"></span><span>REC</span><span>FRAME <b id="fnum">000000</b></span></div>
+  <div class="read r"><span>TC <b id="tc">00:00:00:00</b></span></div>
+</div>
+
+<header class="nav">
+  <a class="brand" href="#topo" aria-label="FrameLab, voltar ao topo"><img src="assets/logo-lockup.png" alt="FrameLab" width="173" height="25"></a>
+  <nav aria-label="Principal">
+    <ul>
+      <li><a href="#planos">Planos</a></li>
+      <li><a href="#portfolio">Portfólio</a></li>
+      <li><a href="#como">Como funciona</a></li>
+      <li><a href="#duvidas">Dúvidas</a></li>
+      <li class="cta"><a class="btn btn-gold btn-sm" data-wa-link href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20FrameLab!%20Vim%20pelo%20site." target="_blank" rel="noopener">WhatsApp</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main" tabindex="-1">
+  <section class="hero" id="topo" aria-label="Apresentação">
+    <div class="hv" aria-hidden="true">
+      <video id="hero" muted loop playsinline preload="none" poster="assets/hero-poster.jpg" tabindex="-1"></video>
+    </div>
+    <div class="hscrim" aria-hidden="true"></div>
+    <div class="hcopy">
+      <span class="kicker">Criação de sites para negócios</span>
+      <h1 data-split>Sites que fazem o seu negócio ser encontrado.</h1>
+      <p class="s">Landing pages, sites institucionais e sites que agendam e vendem sozinhos. Planos a partir de R$ 600.</p>
+      <div class="row">
+        <a class="btn btn-gold" data-wa-link href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20FrameLab!%20Vim%20pelo%20site." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.4.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>Chamar no WhatsApp</a>
+        <a class="btn btn-ghost" href="#planos">Ver os planos</a>
+      </div>
+    </div>
+    <a class="cue" href="#dor" aria-label="Rolar para o conteúdo">ROLE<i></i></a>
+  </section>
+
+  <section class="sec pain rv" id="dor" aria-labelledby="dor-t">
+    <div class="wrap grid">
+      <div class="frame" data-r style="--i:0">
+        <img src="assets/pecas.jpg" alt="O logo da FrameLab desmontado em peças 3D prateadas e douradas" loading="lazy" width="1920" height="1080">
+        <span class="fc"></span><span class="fc"></span><span class="fc"></span><span class="fc"></span>
+        <span class="tag">TAKE 01</span>
+      </div>
+      <div>
+        <span class="kicker" data-r style="--i:1">O problema</span>
+        <h2 id="dor-t" data-r style="--i:2">O cliente procura você no Google e não acha.</h2>
+        <ul class="pains">
+          <li data-r style="--i:3"><span>01</span>Alguém pergunta "vocês têm site?" e você manda o link do Instagram.</li>
+          <li data-r style="--i:4"><span>02</span>Você já pagou um site que atrasou, ou a empresa sumiu depois de receber.</li>
+          <li data-r style="--i:5"><span>03</span>O domínio ficou no nome de outra pessoa, e o cadeado do site quebrou sem ninguém avisar.</li>
+        </ul>
+        <p class="close" data-r style="--i:6">A FrameLab existe para acabar com isso. <em>Prazo combinado, domínio no seu nome, e alguém cuidando do site todo mês.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec svc plans rv" id="planos" aria-labelledby="svc-t">
+    <div class="wrap">
+      <div class="head">
+        <span class="kicker" data-r style="--i:0">Planos</span>
+        <h2 id="svc-t" data-r style="--i:1">Um plano para cada momento do seu negócio.</h2>
+        <p class="lede" data-r style="--i:2">Você paga a criação uma vez. Depois, uma mensalidade pequena mantém o site no ar, seguro e com alguém para te atender.</p>
+      </div>
+      <div class="cards">
+        <article class="card" data-r style="--i:3">
+          <span class="num">01</span>
+          <div class="ic"><svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" class="draw"><rect x="12" y="3" width="32" height="50" rx="6" pathLength="1"/><path d="M19 14h18M19 22h18M19 30h11" pathLength="1"/><path d="M22 43h12" pathLength="1"/></svg></div>
+          <h3>Landing Page</h3>
+          <p>Uma página só, feita para o visitante chamar você no WhatsApp.</p>
+          <div class="price"><small>Criação a partir de</small><strong>R$ 600</strong><span>+ R$ 79 por mês</span></div>
+          <ul><li>1 página que funciona bem no celular</li><li>Botão de WhatsApp e formulário</li><li>Pronta para o Google achar</li><li>Suporte por e-mail em até 48h úteis</li></ul>
+          <p class="eta">Pronta em 5 a 10 dias úteis</p>
+          <a class="btn btn-ghost" data-wa-plan="Landing Page" href="#contato">Quero este plano</a>
+        </article>
+        <article class="card" data-r style="--i:4">
+          <span class="num">02</span>
+          <div class="ic"><svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" class="draw"><rect x="3" y="8" width="50" height="40" rx="6" pathLength="1"/><path d="M3 18h50" pathLength="1"/><path d="M11 27h14v13H11zM31 27h14M31 33h14M31 39h9" pathLength="1"/></svg></div>
+          <h3>Site Institucional</h3>
+          <p>Até 5 páginas para mostrar quem você é e passar confiança.</p>
+          <div class="price"><small>Criação a partir de</small><strong>R$ 1.500</strong><span>+ R$ 149 por mês</span></div>
+          <ul><li>Início, Sobre, Serviços, Contato e mais uma</li><li>Mapa, redes sociais e formulário</li><li>Cada página pronta para o Google</li><li>Suporte por WhatsApp em até 24h úteis</li></ul>
+          <p class="eta">Pronto em 10 a 20 dias úteis</p>
+          <a class="btn btn-ghost" data-wa-plan="Site Institucional" href="#contato">Quero este plano</a>
+        </article>
+        <article class="card" data-r style="--i:5">
+          <span class="num">03</span>
+          <div class="ic"><svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" class="draw"><rect x="3" y="8" width="50" height="40" rx="6" pathLength="1"/><path d="M3 18h50M14 3v10M42 3v10" pathLength="1"/><path d="M18 33l7 7 13-14" pathLength="1"/></svg></div>
+          <h3>Site com Automação</h3>
+          <p>O site trabalha sozinho: agenda horário, recebe pagamento e te avisa.</p>
+          <div class="price"><small>Criação a partir de</small><strong>R$ 3.000</strong><span>+ R$ 299 por mês</span></div>
+          <ul><li>Tudo do Site Institucional</li><li>Agendamento online com lembrete</li><li>Venda com Pix ou cartão</li><li>Painel com vendas, agendamentos e contatos</li><li>WhatsApp prioritário em até 8h comerciais</li></ul>
+          <p class="eta">Pronto em 20 a 40 dias úteis</p>
+          <a class="btn btn-ghost" data-wa-plan="Site com Automação" href="#contato">Quero este plano</a>
+        </article>
+      </div>
+      <div class="big" data-r style="--i:6">
+        <div><span class="kicker">Médio e grande porte</span><h3>Várias unidades, sistemas internos e prazos garantidos em contrato.</h3><p>Ligamos o site ao seu sistema de gestão ou CRM, com vários usuários e atendimento dedicado. A proposta é feita sob medida.</p></div>
+        <a class="btn btn-gold" data-wa-plan="Médio e grande porte" href="#contato">Conversar sobre o meu projeto</a>
+      </div>
+      <div class="monthly" data-r style="--i:7">
+        <p class="mono">O que a mensalidade cobre</p>
+        <ul>
+          <li><b>Hospedagem</b>O site no ar, rápido</li>
+          <li><b>Cadeado</b>Conexão segura (SSL)</li>
+          <li><b>Backup</b>Cópia guardada do site</li>
+          <li><b>Monitoramento</b>Se o site cair, a gente sabe primeiro</li>
+          <li><b>Ajustes do mês</b>Trocar texto, foto ou preço</li>
+        </ul>
+      </div>
+      <p class="fine" data-r style="--i:8">Os valores são de partida: o preço final sai na proposta, depois de entender o seu caso. Os prazos contam a partir do envio de textos, fotos e logo. Registro de domínio e taxas de pagamento são de outras empresas e ficam no seu nome.</p>
+    </div>
+  </section>
+
+  <section class="sec work rv" id="portfolio" aria-labelledby="work-t">
+    <div class="wrap grid">
+      <div>
+        <span class="kicker" data-r style="--i:0">Portfólio</span>
+        <h2 id="work-t" data-r style="--i:1">Você está dentro de um projeto nosso.</h2>
+        <p class="lede" data-r style="--i:2">Este site é o nosso portfólio. A abertura em vídeo, o visor de câmera, o botão que você segura para colocar no ar: tudo feito aqui, sem modelo pronto.</p>
+        <p class="lede" data-r style="--i:3">É esse cuidado que o site do seu negócio recebe.</p>
+        <a class="btn btn-ghost" href="#topo" data-r style="--i:4">Ver a abertura de novo</a>
+      </div>
+      <figure class="thumb" data-r style="--i:2">
+        <div class="tv">
+          <video id="thumb" muted loop playsinline preload="none" aria-label="Vídeo de abertura da FrameLab: o logo se desmonta e se monta de novo com um anel dourado"></video>
+          <span class="fc"></span><span class="fc"></span><span class="fc"></span><span class="fc"></span>
+          <span class="tag"><i></i>FRAMELAB.COM.BR</span>
+        </div>
+        <figcaption><span>Site FrameLab</span><span class="mono">Vídeo de abertura · Interação · Portfólio</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec how rv" id="como" aria-labelledby="como-t">
+    <div class="wrap grid">
+      <div class="side">
+        <span class="kicker" data-r style="--i:0">Como funciona</span>
+        <h2 id="como-t" data-r style="--i:1">Do primeiro oi ao site no ar.</h2>
+        <p class="lede" data-r style="--i:2">Quatro passos, sem complicação. Você só paga a segunda metade quando o site estiver pronto.</p>
+        <div class="recbox" data-r style="--i:3">
+          <button class="rec" id="rec" type="button" aria-describedby="rec-help">
+            <svg viewBox="0 0 92 92" aria-hidden="true"><circle class="track" cx="46" cy="46" r="44" fill="none" stroke-width="2"/><circle class="prog" cx="46" cy="46" r="44" fill="none" stroke-width="2.5" pathLength="1"/></svg>
+            <span class="core" aria-hidden="true"></span>
+            <span class="sr" id="rec-label">Segure para colocar no ar</span>
+          </button>
+          <div class="rectext" id="rec-help" aria-live="polite"><b id="rec-title">Segure para colocar no ar</b><span id="rec-sub">Aperte e segure o botão para ver o caminho.</span></div>
+        </div>
+      </div>
+      <div class="steps">
+        <span class="rail draw" aria-hidden="true"></span>
+        <ol>
+        <li data-r style="--i:2"><span class="n">PASSO 01</span><h3>Conversa</h3><p>Você conta do seu negócio pelo WhatsApp: o que vende, para quem, e o que o site precisa fazer. A gente indica o plano certo, sem empurrar o maior.</p></li>
+        <li data-r style="--i:3"><span class="n">PASSO 02</span><h3>Proposta</h3><p>Você recebe por escrito o que está incluído, o que não está, o prazo e o valor. Aprovou, paga metade da criação e a gente começa.</p></li>
+        <li data-r style="--i:4"><span class="n">PASSO 03</span><h3>Criação e revisão</h3><p>Você manda textos, fotos e logo. A gente cria e te mostra uma versão para revisar, com duas rodadas de ajustes incluídas.</p></li>
+        <li data-r style="--i:5"><span class="n">PASSO 04</span><h3>No ar</h3><p>Site publicado com o seu domínio e cadeado de segurança. Você paga a outra metade só agora, e a mensalidade começa neste dia.</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec faq rv" id="duvidas" aria-labelledby="faq-t">
+    <svg class="diamonds draw" viewBox="0 0 120 60" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M60 2l28 28-28 28-28-28z" pathLength="1"/><path d="M60 12l18 18-18 18-18-18z" pathLength="1"/><path d="M60 22l8 8-8 8-8-8z" pathLength="1"/></svg>
+    <div class="wrap">
+      <div class="head">
+        <span class="kicker" data-r style="--i:0">Dúvidas</span>
+        <h2 id="faq-t" data-r style="--i:1">O que todo mundo pergunta antes de chamar.</h2>
+      </div>
+      <div class="qa" data-r style="--i:2">
+        <div>
+          <details><summary>O domínio fica no nome de quem?<span class="pl" aria-hidden="true"></span></summary><p>No seu. O endereço do site é seu, e o código do site é entregue a você depois que a criação estiver paga.</p></details>
+          <details><summary>Pra que serve a mensalidade?<span class="pl" aria-hidden="true"></span></summary><p>Para o site continuar no ar, seguro e com alguém cuidando: hospedagem, cadeado, backup, aviso se o site cair e os ajustes pequenos do mês.</p></details>
+          <details><summary>Quanto tempo leva?<span class="pl" aria-hidden="true"></span></summary><p>Landing page de 5 a 10 dias úteis, site institucional de 10 a 20, e site com automação de 20 a 40. O prazo começa a contar quando você envia textos, fotos e logo.</p></details>
+        </div>
+        <div>
+          <details><summary>Como eu pago?<span class="pl" aria-hidden="true"></span></summary><p>Metade da criação para começar e a outra metade só na entrega. A mensalidade começa no dia em que o site vai ao ar.</p></details>
+          <details><summary>Posso começar pequeno e crescer depois?<span class="pl" aria-hidden="true"></span></summary><p>Pode. Muita gente começa com uma landing page, vê os contatos chegando e depois muda de plano, pagando só a diferença.</p></details>
+          <details><summary>Não tenho textos nem fotos. E agora?<span class="pl" aria-hidden="true"></span></summary><p>A gente ajuda. Escrever os textos e criar o logo são serviços à parte. Dá também para começar com imagens de banco e trocar por fotos reais depois.</p></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec cta rv" id="contato" aria-labelledby="cta-t">
+    <div class="wrap grid">
+      <div>
+        <span class="kicker" data-r style="--i:0">Próximo frame</span>
+        <h2 id="cta-t" data-r style="--i:1">Seu negócio merece ser encontrado.</h2>
+        <p class="lede" data-r style="--i:2">Conta o que você precisa. A resposta vem pelo WhatsApp, de uma pessoa, com o plano certo para o seu caso.</p>
+        <a class="direct" data-wa-link href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20FrameLab!%20Vim%20pelo%20site." target="_blank" rel="noopener" data-r style="--i:3">Prefere ir direto? Abrir o WhatsApp</a>
+      </div>
+      <form class="card" id="form" data-r style="--i:3" novalidate>
+        <div class="fields">
+          <div class="field"><label for="f-nome">Seu nome</label><input id="f-nome" name="nome" autocomplete="name" placeholder="Como podemos te chamar?" required></div>
+          <div class="field"><label for="f-tipo">Qual plano te interessa?</label>
+            <select id="f-tipo" name="tipo">
+              <option>Landing Page</option><option>Site Institucional</option><option>Site com Automação</option><option>Médio e grande porte</option><option selected>Ainda não sei</option>
+            </select></div>
+          <div class="field"><label for="f-msg">Conta do seu negócio (opcional)</label><textarea id="f-msg" name="msg" placeholder="O que você vende, sua cidade, seu Instagram..."></textarea></div>
+          <button class="btn btn-gold" type="submit">Chamar no WhatsApp</button>
+          <p class="formnote">Ao enviar, o WhatsApp abre com a sua mensagem pronta.</p>
+        </div>
+        <div class="ok" role="status">
+          <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="#c98a2b" stroke-width="1.6" style="margin:0 auto" aria-hidden="true"><path d="M24 3l21 21-21 21L3 24z"/><path d="M16 24l6 6 11-12"/></svg>
+          <h3>Abrimos o WhatsApp para você.</h3>
+          <p>É só tocar em enviar. Se não abriu, <a class="direct" id="ok-link" href="#" target="_blank" rel="noopener">toque aqui</a>.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="assets/logo-lockup.png" alt="FrameLab" width="152" height="22" loading="lazy">
+    <p>Sites para pequenas e médias empresas. Atendimento online para todo o Brasil.</p>
+    <p>© 2026 FrameLab · <a data-wa-link href="https://wa.me/5500000000000" target="_blank" rel="noopener">WhatsApp</a></p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  'use strict';
+  const WA = document.body.dataset.wa;            // número do WhatsApp, com 55 e DDD
+  const WA_TEXT = 'Olá, FrameLab! Vim pelo site.';
+  const waUrl = t => 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t);
+  document.querySelectorAll('[data-wa-link]').forEach(a => { a.href = waUrl(WA_TEXT) });
+
+  const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+  const smoothstep = (p, e0, e1) => { const t = clamp((p - e0) / (e1 - e0), 0, 1); return t * t * (3 - 2 * t) };
+  function rng(seed){ let s = seed >>> 0; return () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296 }
+  const RM = matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* divisão dos títulos em palavras e letras */
+  document.querySelectorAll('[data-split]').forEach((el, idx) => {
+    const text = el.textContent.trim();
+    const mode = el.dataset.mode || 'words';
+    const r = rng(7 + idx * 101);
+    el.textContent = '';
+    const sr = document.createElement('span'); sr.className = 'sr'; sr.textContent = text;
+    const vis = document.createElement('span'); vis.setAttribute('aria-hidden', 'true');
+    const words = text.split(' ');
+    let ci = 0; const total = text.replace(/ /g, '').length;
+    words.forEach((wd, wi) => {
+      const w = document.createElement('span'); w.className = 'w';
+      if (mode === 'split') {
+        const half = wi < words.length / 2 ? 1 : -1;
+        w.style.setProperty('--jx', (half * (26 + r() * 30)).toFixed(1) + 'px');
+        w.style.setProperty('--th', (Math.abs(wi - (words.length - 1) / 2) / words.length * .5).toFixed(3));
+      } else {
+        w.style.setProperty('--th', (wi / words.length * .45 + r() * .04).toFixed(3));
+      }
+      if (mode === 'chars') {
+        [...wd].forEach(ch => {
+          const c = document.createElement('span'); c.className = 'c'; c.textContent = ch;
+          c.style.setProperty('--th', (r() * .5).toFixed(3));
+          c.style.setProperty('--jx', ((r() - .5) * 140).toFixed(1) + 'px');
+          c.style.setProperty('--jy', ((r() - .5) * 90).toFixed(1) + 'px');
+          c.style.setProperty('--jr', ((r() - .5) * 70).toFixed(1) + 'deg');
+          w.appendChild(c); ci++;
+        });
+      } else { w.textContent = wd }
+      vis.appendChild(w);
+      if (wi < words.length - 1) vis.appendChild(document.createTextNode(' '));
+    });
+    el.append(sr, vis);
+  });
+
+  /* hero: o vídeo toca sozinho, em loop */
+  const heroSec = document.getElementById('topo');
+  const video = document.getElementById('hero');
+  document.querySelectorAll('.hcopy .w').forEach((w, i) => w.style.setProperty('--wi', i));
+  function heroOn(){ heroSec.classList.add('on') }
+  const SMALL = matchMedia('(max-width: 900px), (orientation: portrait) and (max-width: 1024px)');
+  function startHero(){
+    if (RM.matches){ video.poster = 'assets/hero-ending.jpg'; return }
+    video.src = SMALL.matches ? 'assets/thumb.mp4' : 'assets/hero.mp4';
+    video.play().catch(() => { video.poster = 'assets/hero-ending.jpg' });
+  }
+  video.addEventListener('error', () => { video.poster = 'assets/hero-ending.jpg' });
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(heroOn));
+  setTimeout(heroOn, 1500);
+  startHero();
+  new IntersectionObserver(es => { if (RM.matches || !video.src) return; if (es[0].isIntersecting) video.play().catch(() => {}); else video.pause() }).observe(heroSec);
+
+  /* visor: contador de frames (10Hz, só na mudança) */
+  const fnum = document.getElementById('fnum'), tcEl = document.getElementById('tc');
+  let lastHud = 0, lastF = -1, hudTimer = null;
+  const pad = (n, l = 2) => String(n).padStart(l, '0');
+  function hud(){
+    const now = performance.now();
+    if (now - lastHud < 100){ clearTimeout(hudTimer); hudTimer = setTimeout(hud, 110); return }
+    lastHud = now;
+    const f = Math.max(0, Math.round(scrollY / 4));
+    if (f === lastF) return; lastF = f;
+    fnum.textContent = pad(f, 6);
+    const s = Math.floor(f / 24);
+    tcEl.textContent = pad(Math.floor(s / 3600)) + ':' + pad(Math.floor(s / 60) % 60) + ':' + pad(s % 60) + ':' + pad(f % 24);
+  }
+  addEventListener('scroll', hud, { passive: true }); hud();
+
+  /* linhas que se desenham com o scroll */
+  const draws = [...document.querySelectorAll('.draw')].map(el => ({ el, d: -1 }));
+  let drawPinned = false, drawQueued = false;
+  function drawUpdate(){
+    drawQueued = false;
+    if (drawPinned) return;
+    const vh = innerHeight;
+    for (const D of draws){
+      const r = D.el.getBoundingClientRect();
+      if (r.bottom < -50 || r.top > vh + 50) continue;
+      const host = D.el.closest('.steps') ? D.el.closest('.steps').getBoundingClientRect() : r;
+      const d = Math.round(clamp((vh * .92 - host.top) / (host.height + vh * .35), 0, 1) * 200) / 200;
+      if (d !== D.d){ D.d = d; D.el.style.setProperty('--d', d) }
+    }
+  }
+  addEventListener('scroll', () => { if (!drawQueued){ drawQueued = true; requestAnimationFrame(drawUpdate) } }, { passive: true });
+  drawUpdate();
+
+  /* entradas e elementos vivos */
+  const rvIO = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting){
+      e.target.classList.add('in'); rvIO.unobserve(e.target);
+      const n = e.target.querySelectorAll('[data-r]').length;
+      setTimeout(() => e.target.classList.add('done'), 900 + n * 90 + 100);
+    }
+  }), { threshold: .14, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.rv').forEach(s => rvIO.observe(s));
+  const liveIO = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('live', e.isIntersecting)), { threshold: 0 });
+  document.querySelectorAll('.sec').forEach(s => liveIO.observe(s));
+  document.addEventListener('visibilitychange', () => document.body.classList.toggle('paused', document.hidden));
+
+  /* botões dos planos: WhatsApp com o plano já escrito */
+  document.querySelectorAll('[data-wa-plan]').forEach(a => {
+    a.href = waUrl('Olá, FrameLab! Tenho interesse no plano ' + a.dataset.waPlan + '.');
+    a.target = '_blank'; a.rel = 'noopener';
+  });
+
+  /* capa do portfólio: o vídeo toca só quando aparece na tela */
+  const thumb = document.getElementById('thumb');
+  let thumbLoaded = false;
+  new IntersectionObserver(es => {
+    const vis = es[0].isIntersecting;
+    if (RM.matches) return;
+    if (vis && !thumbLoaded){ thumbLoaded = true; thumb.src = 'assets/thumb.mp4' }
+    if (vis) thumb.play().catch(() => {}); else thumb.pause();
+  }, { threshold: .25 }).observe(thumb);
+  RM.addEventListener('change', e => { if (e.matches) thumb.pause() });
+
+  /* momento interativo: segure para gravar */
+  const how = document.getElementById('como'), rec = document.getElementById('rec');
+  const recTitle = document.getElementById('rec-title'), recSub = document.getElementById('rec-sub'), recLabel = document.getElementById('rec-label');
+  let p = 0, holding = false, recRaf = null, recLast = 0, done = false;
+  function recDone(){
+    done = true; p = 1; rec.style.setProperty('--p', 1);
+    how.classList.add('lit'); rec.classList.remove('holding');
+    recTitle.textContent = 'No ar!'; recSub.textContent = 'É assim que funciona, do primeiro oi ao site publicado.';
+    recLabel.textContent = 'Site no ar';
+  }
+  function recTick(now){
+    const dt = Math.min(64, now - (recLast || now)); recLast = now;
+    p = clamp(p + (holding ? dt / 1500 : -dt / 700), 0, 1);
+    rec.style.setProperty('--p', p.toFixed(3));
+    if (p >= 1){ recRaf = null; recLast = 0; recDone(); return }
+    if (!holding && p <= 0){ recRaf = null; recLast = 0; return }
+    recRaf = requestAnimationFrame(recTick);
+  }
+  function hold(on){
+    if (done) return;
+    holding = on; rec.classList.toggle('holding', on);
+    if (on){ recTitle.textContent = 'Publicando...' } else if (p < 1){ recTitle.textContent = 'Segure para colocar no ar' }
+    if (recRaf === null){ recLast = 0; recRaf = requestAnimationFrame(recTick) }
+  }
+  rec.addEventListener('pointerdown', e => { e.preventDefault(); rec.setPointerCapture && rec.setPointerCapture(e.pointerId); hold(true) });
+  ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(t => rec.addEventListener(t, () => hold(false)));
+  rec.addEventListener('contextmenu', e => e.preventDefault());
+  rec.addEventListener('keydown', e => { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat){ e.preventDefault(); hold(true) } });
+  rec.addEventListener('keyup', e => { if (e.key === ' ' || e.key === 'Enter') hold(false) });
+  rec.addEventListener('blur', () => hold(false));
+
+  /* estados finais para movimento reduzido */
+  function pinToFinalStates(){
+    drawPinned = true; document.documentElement.classList.add('pinned');
+    if (!done) recDone();
+    if (recRaf !== null){ cancelAnimationFrame(recRaf); recRaf = null }
+  }
+  function unpinFinalStates(){
+    if (!drawPinned) return;
+    drawPinned = false; document.documentElement.classList.remove('pinned');
+    draws.forEach(D => D.d = -1); drawUpdate();
+  }
+  RM.addEventListener('change', e => { if (e.matches){ pinToFinalStates(); video.pause(); video.currentTime = video.duration || 0 } else unpinFinalStates() });
+
+  /* formulário: monta a mensagem e abre o WhatsApp */
+  const form = document.getElementById('form');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const nome = form.nome.value.trim();
+    if (!nome){ form.nome.focus(); form.nome.setAttribute('aria-invalid', 'true'); form.nome.placeholder = 'Escreve o seu nome aqui'; return }
+    form.nome.removeAttribute('aria-invalid');
+    let t = 'Olá, FrameLab! Sou ' + nome + '. Tenho interesse em: ' + form.tipo.value + '.';
+    if (form.msg.value.trim()) t += ' ' + form.msg.value.trim();
+    const url = waUrl(t);
+    document.getElementById('ok-link').href = url;
+    window.open(url, '_blank', 'noopener');
+    form.classList.add('sent');
+  });
+
+  if (RM.matches) pinToFinalStates();
+})();
+</script>
+</body>
+</html>
